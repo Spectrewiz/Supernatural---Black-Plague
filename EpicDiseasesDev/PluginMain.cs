@@ -69,7 +69,7 @@ namespace EpicDiseases
             {
                 if (group.Name != "superadmin")
                 {
-                    if (group.HasPermission("say"))
+                    if (group.HasPermission("Infect"))
                         infect = true;
                 }
             }
