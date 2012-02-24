@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace EpicDiseases
 {
-    [APIVersion(1, 9)]
+    [APIVersion(1, 11)]
     public class EpicDiseases : TerrariaPlugin
     {
         public override string Name
@@ -111,25 +111,81 @@ namespace EpicDiseases
         {
         }
 
+        public static void Help(CommandArgs args)
+        {
+            args.Player.SendMessage("This plugin is completely evil", Color.DarkGray);
+        }
+
+        public static void Rules(CommandArgs args)
+        {
+            args.Player.SendMessage("I am still wondering if this is going to be a Supernatural Plugin, or a Black Plague Plugin.", Color.DarkRed);
+        }
+
+        public static void InfectPlayer(string to)
+        {
+            var playername = Player.GetPlayerByName(to);
+            if (TShock.Utils.FindPlayer(to).Count > 0)
+            {
+                playername.SetState(Infected.Infected);
+                foreach (Player player in EpicDiseases.Players)
+                {
+                    player.TSPlayer.SendMessage("A foul odor fills the air.", Color.DarkGray);
+                }
+            }
+        }
+
         public static void Infect(CommandArgs args)
         {
-            if (args.Parameters.Count == 1)
+            string cmd = "help";
+            if (args.Parameters.Count > 0)
             {
-                try
-                {
-                    var playername = Player.GetPlayerByName(Convert.ToString(args.Parameters[0]));
-                    playername.SetState(Infected.Infected);
-                    args.Player.SendMessage(string.Format("You stir up some Black Magic, and send it to {0}", playername), Color.DarkGray);
-                    foreach (Player player in EpicDiseases.Players)
-                        player.SendMessage("A foul odor fills the air.", 104, 108, 102);
-                }
-                catch (Exception e)
-                {
-                    args.Player.SendMessage(string.Format("Cannot find {0}", args.Parameters[0]), Color.Red);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(e.Message);
-                    Console.ResetColor();
-                }
+                cmd = args.Parameters[0].ToLower();
+            }
+            switch (cmd)
+            {
+                case "help":
+                    Help(args);
+                    break;
+                case "rules":
+                    Rules(args);
+                    break;
+                case "iplayer":
+                    try
+                    {
+                        InfectPlayer(args.Parameters[1]);
+                        args.Player.SendMessage(string.Format("You stir up Black Magic, and the foul plague sweeps through mankind."), Color.DarkGray);
+                    }
+                    catch (Exception e)
+                    {
+                        args.Player.SendMessage(string.Format("Cannot find {0}", args.Parameters[1]), Color.Red);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(e.Message);
+                        Console.ResetColor();
+                    }
+                    break;
+                case "infectplayer":
+                    try
+                    {
+                        InfectPlayer(args.Parameters[1]);
+                        args.Player.SendMessage(string.Format("You stir up Black Magic, and the foul plague sweeps through mankind."), Color.DarkGray);
+                    }
+                    catch (Exception e)
+                    {
+                        args.Player.SendMessage(string.Format("Cannot find {0}", args.Parameters[1]), Color.Red);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(e.Message);
+                        Console.ResetColor();
+                    }
+                    break;
+                case "cplayer":
+
+                    break;
+                case "cureplayer":
+
+                    break;
+                default:
+                    Help(args);
+                    break;
             }
         }
     }
