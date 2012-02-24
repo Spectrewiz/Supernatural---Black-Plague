@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TShockAPI;
+using Terraria;
 
 namespace EpicDiseases
 {
@@ -10,7 +11,6 @@ namespace EpicDiseases
     {
         public int Index { get; set; }
         public TSPlayer TSPlayer { get { return TShock.Players[Index]; } }
-        //Add other variables here - MAKE SURE YOU DON'T MAKE THEM STATIC
 
         public Player(int index)
         {
@@ -26,7 +26,6 @@ namespace EpicDiseases
             }
             return null;
         }
-
         // Return player by Name
         public static Player GetPlayerByName(string name)
         {
@@ -43,5 +42,26 @@ namespace EpicDiseases
             }
             return null;
         }
+
+        protected Infected State = Infected.Clear;
+
+        public Infected Clear()
+        {
+            return State;
+        }
+        public void SetState(Infected state)
+        {
+            State = state;
+        }
+        public void SendMessage(string message, int colorR, int colorG, int colorB)
+        {
+            NetMessage.SendData((int)PacketTypes.ChatText, Index, -1, message, 255, colorR, colorG, colorB);
+        }
+    }
+
+    public enum Infected
+    {
+        Clear,
+        Infected
     }
 }

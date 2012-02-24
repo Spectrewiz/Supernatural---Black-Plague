@@ -113,9 +113,23 @@ namespace EpicDiseases
 
         public static void Infect(CommandArgs args)
         {
-            foreach (Player player in EpicDiseases.Players)
+            if (args.Parameters.Count == 1)
             {
-                //Code here
+                try
+                {
+                    var playername = Player.GetPlayerByName(Convert.ToString(args.Parameters[0]));
+                    playername.SetState(Infected.Infected);
+                    args.Player.SendMessage(string.Format("You stir up some Black Magic, and send it to {0}", playername), Color.DarkGray);
+                    foreach (Player player in EpicDiseases.Players)
+                        player.SendMessage("A foul odor fills the air.", 104, 108, 102);
+                }
+                catch (Exception e)
+                {
+                    args.Player.SendMessage(string.Format("Cannot find {0}", args.Parameters[0]), Color.Red);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Message);
+                    Console.ResetColor();
+                }
             }
         }
     }
