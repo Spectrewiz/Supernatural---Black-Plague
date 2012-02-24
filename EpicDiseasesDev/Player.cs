@@ -7,7 +7,7 @@ using Terraria;
 
 namespace EpicDiseases
 {
-    class Player
+    public class Player
     {
         public int Index { get; set; }
         public TSPlayer TSPlayer { get { return TShock.Players[Index]; } }

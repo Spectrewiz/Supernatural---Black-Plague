@@ -1,1 +1,5 @@
 C:\Users\Nelson\Desktop\EpicDiseases Dev Plugin\EpicDiseasesDev\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Nelson\Desktop\EpicDiseases Dev Plugin\Bin\Debug\EpicDiseases\EpicDiseases.dll
+C:\Users\Nelson\Desktop\EpicDiseases Dev Plugin\Bin\Debug\EpicDiseases\EpicDiseases.pdb
+C:\Users\Nelson\Desktop\EpicDiseases Dev Plugin\EpicDiseasesDev\obj\Debug\EpicDiseases.dll
+C:\Users\Nelson\Desktop\EpicDiseases Dev Plugin\EpicDiseasesDev\obj\Debug\EpicDiseases.pdb
